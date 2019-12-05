@@ -1,5 +1,22 @@
 import {DataView} from '../src/index'
 
+const renewable = 1204.54, other = 1788.49;
+const total = renewable + other;
+
+const renewablePercentage = `${Math.round(renewable / total * 100)}%`
+const otherPercentage = `${Math.round(other / total * 100)}%`
+
+const dataFormat = {
+  "type": "bar",
+  "textposition": 'inside',
+  "textangle": 0,
+  "textfont": {
+    "size": 22
+  },
+  "orientation": "h",
+  "hoverinfo": "none",
+}
+
 const datapackage = {
   "views": [
     {
@@ -10,8 +27,8 @@ const datapackage = {
           "_values": [
             {
               "date": "2019-10-11",
-              "renewalble": 1204.54,
-              "other": 1788.49
+              "renewalble": renewable,
+              "other": other
             }
           ]
         },
@@ -24,58 +41,40 @@ const datapackage = {
           "other"
         ],
         "data": [
-          {
-            "name": "renewable",
-            "type": "bar",
-            "text": ["some text"],
-            "orientation": "h",
-            "hovermode": "closest",
-            "hoverlabel": {
-              "bgcolor": "#08505D",
-              "font": {
-                "size": 20,
-                "color": "#FBD236"
-              },
-              "align": "left",
-            }
-          },
-          {
-            "name": "other",
-            "type": "bar",
-            "orientation": "h"
-          }
+          Object.assign({
+              "name": "renewable",
+              "text": renewablePercentage
+            }, dataFormat
+          ),
+          Object.assign({
+              "name": "other",
+              "text": otherPercentage
+            }, dataFormat
+          )
         ],
         "layout": {
           "title": "SHARE OF RENEWABLE ENERGY",
-          autosize: false,
-          width: 500,
-          height: 500,
-          margin: {
-            l: 10,
-            r: 10,
-            b: 10,
-            t: 40,
-            // pad: 1
+          "autosize": false,
+          "width": 400,
+          "height": 500,
+          "margin": {
+            "l": 10,
+            "r": 10,
+            "b": 10,
+            "t": 40
           },
-          // automargin: true,
           "xaxis": {
-            // "title": 'X Axis Title',
-            "ticks": "",
-            // "showline": false,
-            "showgrid": false,
+            "ticks": 'outside',
             "zeroline": false,
-            "showticklabels": false,
           },
           "yaxis": {
-            // "title": 'Y Axis Title',
             "ticks": "",
-            // "showline": false,
             "showgrid": false,
             "zeroline": false,
             "showticklabels": false,
           },
           "barmode": "stack",
-          "colorway": ["#FBD236", "#08505D", "#008A8B"],
+          "colorway": ["#FBD236", "#008A8B"],
           "legend": {
             "font": {
               "size": 20,
